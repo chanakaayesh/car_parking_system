@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cars")
+
 public class carController {
     @Autowired
     private carRepository repository;
@@ -17,36 +18,34 @@ public class carController {
         this.repository = repository;
     }
 
-    @GetMapping("person/{personid}/cars")
-    public List<carDetails> listOfcars(@PathVariable Long personid){
-
-        return repository.findcarsByPersonid(personid);
-                        //findcarsByPersonid
-    }
+/*
 
     @GetMapping("person/{id}/address")
     public address getparkingAddress(@PathVariable Long id){
 
         return repository.getCarParkAddress(id);
     }
-
-    @GetMapping("car/{id}")
-    public Optional<car> getcarDetails(@PathVariable Long id){
+*/
+//Get detailed information about one CAR
+    @GetMapping("{id}")
+    public Optional<car> getCarDetails(@PathVariable Long id){
 
         return repository.findById(id);
     }
 
-
-    @PostMapping("/save")
+ //Create a CAR entity
+    @PostMapping()
     public car saveCar(@RequestBody car model){
 
-        return repository.save(model);
+        car Car = repository.save(model);
+        return Car;
     }
 
-    @PutMapping("person/car/{ID}")
-    public  void updateCarOwner(@PathVariable Long ID,@RequestParam Long PERSON_ID){
+    //Transfer ownership of a CAR from one PERSON to another
+    @PutMapping("{ID}")
+    public  void updateCarOwner(@PathVariable Long ID,@RequestParam Long person_id){
 
-        repository.updatecarOner(PERSON_ID,ID);
+        repository.updatecarOner(ID,person_id);
 
     }
 

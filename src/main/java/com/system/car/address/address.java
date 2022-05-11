@@ -42,5 +42,8 @@ public class address {
     @Column(name="Country")
     private  String country;
 
+    @Column(name = "per_id")
+    private Long personid ;
+
 
 }
